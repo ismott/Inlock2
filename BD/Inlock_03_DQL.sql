@@ -17,12 +17,10 @@ select NomeEstudio, NomeJogo from Estudio as e
 left join Jogo as j on e.IdEstudio = j.IdEstudio
 go
 
-select * from Usuario 
-where Email = 'admin@admin.com' and Senha = 'admin'
+select Email, Senha, IdTipoUsuario from Usuario where Email = 'admin@admin.com' and Senha = 'admin'
 go
 
-select * from Jogo
-where IdJogo = 1
+select Estudio.NomeEstudio, NomeJogo, Descricao, DataLancamento, Valor from Jogo inner join Estudio on jogo.IdEstudio = Estudio.IdEstudio where IdJogo = 4
 go
 
 select * from Estudio 

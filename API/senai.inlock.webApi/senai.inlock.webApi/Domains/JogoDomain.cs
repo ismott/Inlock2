@@ -2,16 +2,19 @@
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace senai.inlock.webApi_.Domains
 {
     public class JogoDomain
     {
+        [JsonIgnore]
         public int IdJogo { get; set; }
 
         public EstudioDomain Estudio { get; set; }
 
+        [JsonIgnore]
         [Required(ErrorMessage = "O id do estudio precisa ser informado!")]
         public int IdEstudio { get; set; }
 

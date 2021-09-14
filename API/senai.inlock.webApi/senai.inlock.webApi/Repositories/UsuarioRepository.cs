@@ -10,12 +10,12 @@ namespace senai.inlock.webApi_.Repositories
 {
     public class UsuarioRepository : IUsuarioRepository
     {
-        private string StringConexao = "data source=HALLISONSIARA\\SQLEXPRESS; initial Catalog=T_Rental_Israel; user Id=sa; pwd=senai@132";
+        private string StringConexao = "data source=HALLISONSIARA\\SQLEXPRESS; initial Catalog=inlock_games_tarde; user Id=sa; pwd=senai@132";
         public UsuarioDomain Login(string Email, string Senha)
         {
             using (SqlConnection con = new SqlConnection(StringConexao))
             {
-                string QueryLog = "select Email, Senha, IdTipoUsuario from Usuario where Email = @email and Senha = @senha";
+                string QueryLog = "SELECT IdUsuario, Email, U.IdTipoUsuario, TU.Titulo FROM usuario U INNER JOIN tipoUsuario TU ON U.idTipoUsuario = TU.idTipoUsuario WHERE email = @email AND senha = @senha";
 
                 con.Open();
                 
@@ -31,10 +31,13 @@ namespace senai.inlock.webApi_.Repositories
                     {
                         UsuarioDomain UsuarioBuscado = new UsuarioDomain
                         {
-                            IdUsuario = Convert.ToInt32(rdr[0]),
-                            IdTipoUsuario = Convert.ToInt32(rdr[1]),
-                            Email = rdr[2].ToString(),
-                            Senha = rdr[3].ToString()
+                            IdUsuario = Convert.ToInt32(rdr["IdUsuario"]),
+                            IdTipoUsuario = Convert.ToInt32(rdr["IdTipoUsuario"]),
+                            Email = rdr["Email"].ToString(),
+                            TipoUsuario = new TipoUsuarioDomain()
+                            { 
+                                Titulo = rdr["Titulo"].ToString()
+                            }
                         };
 
                         return UsuarioBuscado;

@@ -10,13 +10,13 @@ namespace senai.inlock.webApi_.Repositories
 {
     public class JogoRepositorty : IJogoRepository
     {
-        private string StringConexao = "data source=HALLISONSIARA\\SQLEXPRESS; initial Catalog=T_Rental_Israel; user Id=sa; pwd=senai@132";
+        private string StringConexao = "data source=HALLISONSIARA\\SQLEXPRESS; initial Catalog=inlock_games_tarde; user Id=sa; pwd=senai@132";
 
         public void AtualizarPorUrl(int id, JogoDomain JogoAtualizado)
         {
             using (SqlConnection con = new SqlConnection(StringConexao))
             {
-                string QueryUpdate = "update Jogo set NomeEstudio = @Nome, Descricao = @Descricao, DataLancamento = @Data, @preco where idEstudio = @IdJogo;";
+                string QueryUpdate = "update Jogo set NomeJogo = @Nome, Descricao = @Descricao, DataLancamento = @Data, Valor = @preco where idJogo = @IdJogo;";
 
                 con.Open();
 
@@ -26,6 +26,7 @@ namespace senai.inlock.webApi_.Repositories
                     cmd.Parameters.AddWithValue("@Descricao", JogoAtualizado.Descricao);
                     cmd.Parameters.AddWithValue("@Data", JogoAtualizado.DataLancamento);
                     cmd.Parameters.AddWithValue("@preco", JogoAtualizado.Valor);
+                    cmd.Parameters.AddWithValue("@IdJogo", id);
 
                     cmd.ExecuteReader();
                 }
@@ -71,13 +72,13 @@ namespace senai.inlock.webApi_.Repositories
         {
             using (SqlConnection con = new SqlConnection(StringConexao))
             {
-                string QueryInsert = "insert into Jogo (IdEstudio, NomeJogo, Descricao, DataLancamento, Valor) values(@IdEstudio, @NomeJogo, @Descrição, @Data, @Valor),";
+                string QueryInsert = "insert into Jogo (IdEstudio, NomeJogo, Descricao, DataLancamento, Valor) values (@EstudioId, @NomeJogo, @Descrição, @Data, @Valor)";
 
                 con.Open();
 
                 using (SqlCommand cmd = new SqlCommand(QueryInsert, con))
                 {
-                    cmd.Parameters.AddWithValue("@IdEstudio", NovoJogo.IdEstudio);
+                    cmd.Parameters.AddWithValue("@EstudioId", NovoJogo.IdEstudio);
                     cmd.Parameters.AddWithValue("@NomeJogo", NovoJogo.NomeJogo);
                     cmd.Parameters.AddWithValue("@Descrição", NovoJogo.Descricao);
                     cmd.Parameters.AddWithValue("@Data", NovoJogo.DataLancamento);

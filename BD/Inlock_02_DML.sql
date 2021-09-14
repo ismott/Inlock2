@@ -17,8 +17,8 @@ values ('Blizzard,'),('Rockstar Studios'),('Square Enix')
 go
 
 insert into Jogo (IdEstudio, NomeJogo, Descricao, DataLancamento, Valor)
-values (1,'Diablo 3','é um jogo que contém bastante ação e é viciante, seja você um novato ou um fã', '2018/05/15', 99.00),
-(2,'Red Dead Redemption II','jogo eletrônico de ação-aventura western', '2018/10/26', 120.00)
+values (1,'Diablo 3','Ã© um jogo que contÃ©m bastante aÃ§Ã£o e Ã© viciante, seja vocÃª um novato ou um fÃ£', '2018/05/15', 99.00),
+(2,'Red Dead Redemption II','jogo eletrÃ´nico de aÃ§Ã£o-aventura western', '2018/10/26', 120.00)
 go
 
 update Jogo set NomeEstudio = 'a', Descricao = 'a', DataLancamento = '2018/10/26', 125.00 where idEstudio = 1;

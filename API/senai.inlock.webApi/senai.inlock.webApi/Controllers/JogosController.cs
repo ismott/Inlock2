@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using senai.inlock.webApi_.Domains;
 using senai.inlock.webApi_.Interfaces;
@@ -13,6 +14,7 @@ namespace senai.inlock.webApi_.Controllers
     [Produces("application/json")]
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class JogosController : ControllerBase
     {
         private IJogoRepository _JogoRepository { get; set; }
@@ -42,6 +44,7 @@ namespace senai.inlock.webApi_.Controllers
             return Ok(JogoBuscado);
         }
 
+        [Authorize(Roles = "1")]
         [HttpPut("{id}")]
 
         public IActionResult PutIdUrl(int id, JogoDomain NovoVeiculo)
@@ -71,20 +74,22 @@ namespace senai.inlock.webApi_.Controllers
             }
         }
 
+        [Authorize(Roles = "1")]
         [HttpPost]
-        public IActionResult Post(JogoDomain NovoVeiculo)
+        public IActionResult Post(JogoDomain NovoJogo)
         {
-            _JogoRepository.Cadastrar(NovoVeiculo);
+            _JogoRepository.Cadastrar(NovoJogo);
 
             return StatusCode(201);
         }
 
+        [Authorize(Roles = "1")]
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
         {
             _JogoRepository.Deletar(id);
 
-            return StatusCode(201);
+            return StatusCode(200);
         }
     }
 }
